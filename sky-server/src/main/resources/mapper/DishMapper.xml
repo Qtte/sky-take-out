@@ -6,7 +6,7 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into dish(name,category_id,price,image,description,status,create_user,create_time,update_user,update_time)
         values
-            (#{name},#{categoryId},#{price},#{price},#{description},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime})
+            (#{name},#{categoryId},#{price},#{image},#{description},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime})
     </insert>
 
     <select id="pageQuery" resultType="com.sky.vo.DishVO">
@@ -24,4 +24,27 @@
 
         </where>
     </select>
+
+    <delete id="deleteByIds">
+        delete from dish where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+
+    </delete>
+
+    <update id="update">
+        update dish
+        <set>
+            <if test="name != null"> name = #{name},</if>
+            <if test="categoryId != null"> category_id = #{categoryId},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="image != null"> image = #{image},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

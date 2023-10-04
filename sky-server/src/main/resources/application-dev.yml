@@ -12,3 +12,9 @@ sky:
     access-key-id: LTAI5t6JPJCGwuyNuWPo7EJZ
     access-key-secret: cIZxs6RF9cAafR2utSREZ1EIFOApOR
     bucket-name: tomato-sky-takeout
+
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    database: 10
