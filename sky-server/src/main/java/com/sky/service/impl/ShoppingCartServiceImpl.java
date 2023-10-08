@@ -12,6 +12,7 @@ import com.sky.service.ShoppingCartService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.index.PathBasedRedisIndexDefinition;
 import org.springframework.stereotype.Service;
 
@@ -79,5 +80,43 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 
 
+    }
+
+    /**
+     * 查询购物车数据
+     * @param shoppingCart
+     * @return
+     */
+    @Override
+    public List<ShoppingCart> showShoppingCart(ShoppingCart shoppingCart) {
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+        return list;
+    }
+
+    @Override
+    public void cleanShoppingCart(Long currentId) {
+        ShoppingCart shoppingCart = ShoppingCart.builder()
+                .id(currentId)
+                .build();
+        shoppingCartMapper.delete(shoppingCart);
+    }
+
+    @Override
+    public void subShoppingCart(ShoppingCartDTO shoppingCartDTO) {
+
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(shoppingCartDTO,shoppingCart);
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+        //当获取前操作的购物车数据
+        ShoppingCart cart = list.get(0);
+        //如果商品数量大于一，则数量减一
+        if(cart.getNumber() > 1){
+            cart.setNumber(cart.getNumber() - 1);
+            shoppingCartMapper.updateNumberById(cart);
+        }
+        //如果商品数量等于一，则删除购物车中该菜品数据
+        else{
+            shoppingCartMapper.delete(cart);
+        }
     }
 }
