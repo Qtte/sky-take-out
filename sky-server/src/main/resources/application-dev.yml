@@ -1,24 +1,24 @@
 sky:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    host: localhost
-    port: 3306
-    database: sky-take-out
-    username: root
-    password: 123
+    host: 
+    port: 
+    database: 
+    username: 
+    password: 
 
   alioss:
-    endpoint: oss-cn-beijing.aliyuncs.com
-    access-key-id: LTAI5t6JPJCGwuyNuWPo7EJZ
-    access-key-secret: cIZxs6RF9cAafR2utSREZ1EIFOApOR
-    bucket-name: tomato-sky-takeout
+    endpoint: 
+    access-key-id: 
+    access-key-secret: 
+    bucket-name: 
 
   redis:
-    host: localhost
-    port: 6379
-    password: 123456
-    database: 10
+    host: 
+    port: 
+    password: 
+    database: 
 
   wechat:
-    appid: wxa74189aa0e86467f
-    secret: a0f9d5e280357e1a7552d1c86bfea7a6
+    appid: 
+    secret: 
